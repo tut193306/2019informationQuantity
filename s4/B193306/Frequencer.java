@@ -12,16 +12,19 @@ interface FrequencerInterface {     // This interface provides the design for fr
     int subByteFrequency(int start, int end);
     // get the frequency of subByte of taget, i.e target[start], taget[start+1], ... , target[end-1].
     // For the incorrect value of START or END, the behavior is undefined.
-*/
+}*/
 
 
 public class Frequencer implements FrequencerInterface{
     // Code to Test, *warning: This code  contains intentional problem*
     byte [] myTarget;
     byte [] mySpace;
+	
     public void setTarget(byte [] target) { myTarget = target;}
     public void setSpace(byte []space) { mySpace = space; }
     public int frequency() {
+	/* ターゲットが存在しなかったり、長さが0であるときは-1を返すようにするべきである。*/
+	/* if(myTarget.length == 0 || myTarget == null) return -1; */
 	int targetLength = myTarget.length;
 	int spaceLength = mySpace.length;
 	int count = 0;
