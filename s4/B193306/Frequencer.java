@@ -103,19 +103,9 @@ public class Frequencer implements FrequencerInterface{
         }
         //                                            
         // ここに、int suffixArrayをソートするコードを書け。
-        /*
-        int temp;
-        for(int i=0; i<suffixArray.length; i++){
-            for(int j=suffixArray.length - 1; j>=i; j--){
-                if(suffixCompare(i,j) == 1){
-                   temp = suffixArray[i];
-                   suffixArray[i] = suffixArray[j];
-                   suffixArray[j] = temp; 
-                }
-            }
-        }*/
         
-        for (int i = 0; i < suffixArray.length-1; i++) {
+        
+        for (int i = 0; i < suffixArray.length - 1; i++) {
             for (int j = suffixArray.length - 1; j > i; j--) {
                 if (suffixCompare(suffixArray[j-1],suffixArray[j]) == 1) {
                     int temp = suffixArray[j - 1];
@@ -188,7 +178,7 @@ public class Frequencer implements FrequencerInterface{
 
         int length = Math.min(mySpace.length-i, k-j);
 
-        if((mySpace.length-i)<(k-j+1)){
+        if((mySpace.length-i)<(k-j)){
             return -1;
         }
         
@@ -260,8 +250,14 @@ public class Frequencer implements FrequencerInterface{
         //　ここにコードを記述せよ                                           
         //     
         int p = subByteStartIndex(start, end);
+        if(suffixArray.length < end - start){
+            return p;
+        }
         while(targetCompare(suffixArray[p], start, end) == 0){
             p++;
+            if(p == suffixArray.length){
+                return p;
+            }
         }                      
         return p;
         //return suffixArray.length; // この行は変更しなければならない、       
