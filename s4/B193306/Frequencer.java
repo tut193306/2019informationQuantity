@@ -104,7 +104,7 @@ public class Frequencer implements FrequencerInterface{
         //                                            
         // ここに、int suffixArrayをソートするコードを書け。
         
-        
+        /*
         for (int i = 0; i < suffixArray.length - 1; i++) {
             for (int j = suffixArray.length - 1; j > i; j--) {
                 if (suffixCompare(suffixArray[j-1],suffixArray[j]) == 1) {
@@ -113,8 +113,34 @@ public class Frequencer implements FrequencerInterface{
                     suffixArray[j] = temp;
                 }
             }
-        }
+        }*/
+        quicksort(suffixArray, 0, suffixArray.length-1);
         // 　順番はsuffixCompareで定義されるものとする。
+    }
+
+    private void quicksort(int[] array, int left, int right){
+        if(left <= right){
+            int p = right;
+            int l = left;
+            int r = right;
+            while(l <= r){
+                while(suffixCompare(suffixArray[l],suffixArray[p]) == -1){
+                    l++;
+                }
+                while(suffixCompare(suffixArray[r],suffixArray[p]) == 1){
+                    r--;
+                }
+                if(l <= r){
+                    int tmp = array[l];
+                    array[l] = array[r];
+                    array[r] = tmp;
+                    l++;
+                    r--;
+                }
+            }
+            quicksort(array, left, r);
+            quicksort(array, l, right);
+        }
     }
 
     // Suffix Arrayを用いて、文字列の頻度を求めるコード
@@ -181,6 +207,21 @@ public class Frequencer implements FrequencerInterface{
         if((mySpace.length-i)<(k-j)){
             return -1;
         }
+        /*
+        int low = 0;
+        int high = suffixArray.length - 1;
+        while (low <= high) {
+            int middle = (low + high) >>> 1;
+            if (suffixArray.substring(middle) == myTarget.substring(j, k)) {
+                return 1;
+            } else if (suffixArray.substring(middle) > myTarget.substring(j, k)) {
+                low = middle + 1;
+            } else {
+                high = middle - 1;
+            }
+        }
+        return 0;
+        */
         
         for(int x=0; x<length; x++){
             if(mySpace[x+i]-myTarget[x+j]>0) return 1;
